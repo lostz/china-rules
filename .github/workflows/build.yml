@@ -1,7 +1,9 @@
 name: Generate routing rules for Openwrt and adguardhome
+env:
+  TZ: Asia/Shanghai
 on:
   schedule:
-    - cron: "24 21 * * *"
+    - cron: "29 21 * * *"
   push:
     branches:
       - master
