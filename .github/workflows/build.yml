@@ -1,7 +1,7 @@
 name: Generate routing rules for Openwrt and adguardhome
 on:
   schedule:
-    - cron: "30 17 * * *"
+    - cron: "24 21 * * *"
   push:
     branches:
       - master
@@ -53,16 +53,23 @@ jobs:
           curl -sSL ${Loyalsoldier_direct} | perl -ne '/^([-_a-zA-Z0-9]+(\.[-_a-zA-Z0-9]+)*)/ && print "$1\n"' > direct.txt
           curl -sSL ${Loyalsoldier_direct} | perl -ne '/^([-_a-zA-Z0-9]+(\.[-_a-zA-Z0-9]+)*)/ && print "DOMAIN-SUFFIX,$1\n"' > ruleset/direct.txt
 
+      - name: Generate apple-china.txt file
+        run: |
+          curl -sSL ${felixonmars_apple} | perl -ne '/^([-_a-zA-Z0-9]+(\.[-_a-zA-Z0-9]+)*)/ && print "$1\n"' > apple-cn.txt
+          curl -sSL ${felixonmars_apple} | perl -ne '/^([-_a-zA-Z0-9]+(\.[-_a-zA-Z0-9]+)*)/ && print "DOMAIN-SUFFIX,$1\n"' > ruleset/apple-cn.txt
 
       - name: Generate cncidr.txt file
         run: |
           curl -sSL ${ipipnet_chinaiplist} | perl -ne '/^(\d{1,3}(\.\d{1,3}){3}\/\d{1,2})/ && print "$1\n"' > cncidr.txt
           curl -sSL ${ipipnet_chinaiplist} | perl -ne '/^(\d{1,3}(\.\d{1,3}){3}\/\d{1,2})/ && print "$1\n"' > ruleset/cncidr.txt
+      - name: Generate direct-apple.txt file
+        run: |
+          cat direct.txt apple-cn.txt > direct-apple-cn.txt
 
       - name: Move files to publish directory
         run: |
           mkdir -p publish
-          install -p {apple,icloud,google,direct,cncidr}.txt ./publish/
+          install -p {apple,icloud,google,direct,cncidr,direct-apple-cn}.txt ./publish/
           mv ruleset ./publish/
 
       - name: Release and upload assets
