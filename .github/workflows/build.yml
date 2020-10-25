@@ -3,7 +3,7 @@ env:
   TZ: Asia/Shanghai
 on:
   schedule:
-    - cron: "29 21 * * *"
+    - cron: "49 00 * * *"
   push:
     branches:
       - master
@@ -57,8 +57,8 @@ jobs:
 
       - name: Generate apple-china.txt file
         run: |
-          curl -sSL ${felixonmars_apple} | perl -ne '/^([-_a-zA-Z0-9]+(\.[-_a-zA-Z0-9]+)*)/ && print "$1\n"' > apple-cn.txt
-          curl -sSL ${felixonmars_apple} | perl -ne '/^([-_a-zA-Z0-9]+(\.[-_a-zA-Z0-9]+)*)/ && print "DOMAIN-SUFFIX,$1\n"' > ruleset/apple-cn.txt
+          curl -sSL ${felixonmars_apple} | perl -ne '/^server=\/([^\/]+)\// && print "$1\n"' > apple-cn.txt
+          curl -sSL ${felixonmars_apple} | perl -ne '/^server=\/([^\/]+)\// && print "DOMAIN-SUFFIX,$1\n"' > ruleset/apple-cn.txt
 
       - name: Generate cncidr.txt file
         run: |
