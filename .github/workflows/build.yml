@@ -1,4 +1,4 @@
-name: Generate routing rules for Openwrt and adguardhome
+name: Generate routing rules for Openwrt and adguardhome and RouterOS
 env:
   TZ: Asia/Shanghai
 on:
