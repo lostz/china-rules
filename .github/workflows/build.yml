@@ -3,7 +3,7 @@ env:
   TZ: Asia/Shanghai
 on:
   schedule:
-    - cron: "49 00 * * *"
+    - cron: "49 05 * * *"
   push:
     branches:
       - master
@@ -54,6 +54,7 @@ jobs:
         run: |
           curl -sSL ${Loyalsoldier_direct} | perl -ne '/^([-_a-zA-Z0-9]+(\.[-_a-zA-Z0-9]+)*)/ && print "$1\n"' > direct.txt
           curl -sSL ${Loyalsoldier_direct} | perl -ne '/^([-_a-zA-Z0-9]+(\.[-_a-zA-Z0-9]+)*)/ && print "DOMAIN-SUFFIX,$1\n"' > ruleset/direct.txt
+          cat direct.txt | sed -e '/^regexp/d' > direct.txt
 
       - name: Generate apple-china.txt file
         run: |
