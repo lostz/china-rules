@@ -67,7 +67,7 @@ jobs:
       - name: Generate direct-apple.txt file
         run: |
           cat direct.txt apple-cn.txt > direct-apple-cn.txt
-      -name: Generate cnip.rsc file
+      - name: Generate cnip.rsc file
         run: |
           echo "/ip firewall address-list" > ruleset/cnip.rsc
           echo "remove [/ip firewall address-list find list=CNIP]" >> ruleset/cnip.rsc
