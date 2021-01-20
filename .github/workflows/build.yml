@@ -3,7 +3,7 @@ env:
   TZ: Asia/Shanghai
 on:
   schedule:
-    - cron: "49 05 * * *"
+    - cron: "00 03 * * *"
   push:
     branches:
       - master
