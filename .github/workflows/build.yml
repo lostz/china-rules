@@ -75,6 +75,7 @@ jobs:
         run: |
           mkdir -p publish
           install -p {apple,icloud,google,direct,cncidr,direct-apple-cn}.txt ./publish/
+          install -p cnip.rsc ./publish/
           mv ruleset ./publish/
 
       - name: Release and upload assets
